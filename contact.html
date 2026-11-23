@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAKEN — Contact Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        *{scroll-behavior:smooth}
+        body{font-family:Arial,sans-serif;color:#111;overflow-x:hidden;animation:fadeIn .8s ease}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+        .navbar{background:#fff;border-bottom:1px solid #ddd;padding:18px 0}
+        .logo{font-size:28px;font-weight:bold;letter-spacing:5px;cursor:pointer}
+        .nav-link{color:#111!important;font-weight:600;margin:0 12px;transition:.3s}
+        .nav-link:hover{transform:translateY(-2px)}
+        
+        #languageSelect{width:75px;border-radius:20px;padding:4px 10px;font-size:13px;font-weight:600;}
+        
+        .cart-dropdown { width: 320px; right: 0; left: auto !important; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid #eee; margin-top: 12px !important; }
+        .cart-dropdown h6 { font-size: 18px; font-weight: bold; color: #111; margin-bottom: 8px; }
+        .signin-prompt { font-size: 13px; color: #555; margin-bottom: 15px; border-bottom: 1px solid #eaeaea; padding-bottom: 10px; }
+        .profile-link { display: flex; align-items: center; gap: 12px; color: #333; text-decoration: none; padding: 8px 0; font-size: 15px; transition: color 0.2s; cursor: pointer; }
+        .profile-link i { font-size: 18px; color: #555; }
+        .profile-link:hover { color: #000; }
+        .profile-link:hover i { color: #000; }
+
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            color: #111;
+            background: #fff;
+            text-decoration: none;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-btn:hover {
+            background-color: #25d366;
+            color: #fff;
+            border-color: #25d366;
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+        .tiktok-btn:hover {
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-button-oval {
+            border-radius: 30px !important;
+            padding: 6px 16px !important;
+        }
+
+        .contact-section { padding: 80px 0; }
+        .contact-info-box {
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 24px;
+            padding: 40px;
+            height: 100%;
+        }
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .contact-method:last-child { margin-bottom: 0; }
+        .contact-icon-wrap {
+            width: 45px;
+            height: 45px;
+            background: #111;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .contact-form-box {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        .form-control, .form-control:focus {
+            border-radius: 16px;
+            padding: 12px 18px;
+            border-color: #ddd;
+            box-shadow: none;
+            background-color: #fcfcfc;
+        }
+        .form-control:focus {
+            border-color: #111;
+            background-color: #fff;
+        }
+        .success-alert {
+            display: none;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+            border-radius: 16px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            animation: fadeIn 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+
+        <a class="navbar-brand logo" href="contact.html">RAKEN</a>
+
+        <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" data-lang="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="shop.html" data-lang="shop">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html" data-lang="about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html" data-lang="contact">Contact</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+
+                <select id="languageSelect"
+                    class="form-select form-select-sm"
+                    onchange="changeLanguage(this.value)">
+                    <option value="EN">EN</option>
+                    <option value="RU">RU</option>
+                    <option value="AZ">AZ</option>
+                </select>
+
+                <div class="d-flex align-items-center gap-1">
+
+                    <a href="https://www.instagram.com/raken.wear?dmpr=MXYwbndwZjR1ZW41Mg%3D%3D&utm_source=qr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn instagram-btn"
+                        title="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+
+                    <a href="https://tiktok.com/@raken.clothing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn tiktok-btn"
+                        title="TikTok">
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+
+                </div>
+
+                <div class="dropdown">
+
+                    <button class="btn btn-dark cart-button dropdown-toggle cart-button-oval"
+                        type="button"
+                        id="cartDropdownMenu"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                        <i class="bi bi-bag"></i>
+
+                    </button>
+
+                    <div class="dropdown-menu cart-dropdown"
+                        aria-labelledby="cartDropdownMenu"
+                        id="dropdownMenuContent">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+<section class="contact-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="contact-info-box">
+                    <div class="contact-method">
+                        <div class="contact-icon-wrap"><i class="bi bi-telephone"></i></div>
+                        <div>
+                            <h5 class="fw-bold mb-1" data-lang="callToUs">Call To Us</h5>
+                            <p class="text-secondary small mb-2" data-lang="availText">We are available 24/7, 7 days a week.</p>
+                            <a href="tel:+994503180141" class="text-dark text-decoration-none fw-bold">+994 50 318 01 41</a>
+                        </div>
+                    </div>
+                    
+                    <hr class="text-muted my-4">
+
+                    <div class="contact-method">
+                        <div class="contact-icon-wrap"><i class="bi bi-envelope"></i></div>
+                        <div>
+                            <h5 class="fw-bold mb-1" data-lang="writeToUs">Write To Us</h5>
+                            <p class="text-secondary small mb-2" data-lang="formText">Fill out our form and we will contact you within 24 hours.</p>
+                            <a href="mailto:support@raken.az" class="text-dark text-decoration-none d-block mb-1">support@raken.az</a>
+                            <a href="mailto:customer@raken.az" class="text-dark text-decoration-none">customer@raken.az</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="contact-form-box">
+                    <div id="successAlert" class="success-alert" data-lang="successMsg">
+                        Your message has been sent successfully! We will contact you shortly.
+                    </div>
+
+                    <form id="contactForm">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="contactName" placeholder="Your Name *" required data-lang-placeholder="namePlaceholder">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="email" class="form-control" id="contactEmail" placeholder="Your Email *" required data-lang-placeholder="emailPlaceholder">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="tel" class="form-control" id="contactPhone" placeholder="Your Phone *" required data-lang-placeholder="phonePlaceholder">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <textarea class="form-control" id="contactMessage" rows="5" placeholder="Your Message *" required data-lang-placeholder="messagePlaceholder"></textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-dark px-5 py-3 rounded-pill fw-bold" data-lang="sendBtn">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const translations = {
+    EN: { 
+        home: "Home", shop: "Shop", about: "About", contact: "Contact", 
+        callToUs: "Call To Us", availText: "We are available 24/7, 7 days a week.",
+        writeToUs: "Write To Us", formText: "Fill out our form and we will contact you within 24 hours.",
+        sendBtn: "Send Message",
+        successMsg: "Your message has been sent successfully! Redirecting to WhatsApp...",
+        namePlaceholder: "Your Name *", emailPlaceholder: "Your Email *", phonePlaceholder: "Your Phone *", messagePlaceholder: "Your Message *",
+        bagEmpty: "Your Bag is empty.",
+        bagSigninText: "Sign in to see if you have any saved items",
+        myProfile: "My Profile",
+        menuSaves: "Your Saves",
+        menuCart: "Cart",
+        menuAccount: "Account",
+        menuSignin: "Sign in",
+        menuSignout: "Sign out"
+    },
+    RU: { 
+        home: "Главная", shop: "Магазин", about: "О нас", contact: "Контакты", 
+        callToUs: "Позвоните нам", availText: "Мы доступны 24/7, без выходных.",
+        writeToUs: "Напишите нам", formText: "Заполните форму, и мы свяжемся с вами в течение 24 часов.",
+        sendBtn: "Отправить сообщение",
+        successMsg: "Ваше сообщение успешно сформировано! Переходим в WhatsApp...",
+        namePlaceholder: "Ваше имя *", emailPlaceholder: "Ваш Email *", phonePlaceholder: "Ваш телефон *", messagePlaceholder: "Ваше сообщение *",
+        bagEmpty: "Ваша корзина пуста.",
+        bagSigninText: "Войдите, чтобы посмотреть сохраненные товары",
+        myProfile: "Мой профиль",
+        menuSaves: "Избранное",
+        menuCart: "Корзина",
+        menuAccount: "Аккаунт",
+        menuSignin: "Войти",
+        menuSignout: "Выйти"
+    },
+    AZ: { 
+        home: "Ana səhifə", shop: "Mağaza", about: "Haqqımızda", contact: "Əlaqə", 
+        callToUs: "Bizə zəng edin", availText: "Həftənin 7 günü, 24 saat xidmətinizdəyik.",
+        writeToUs: "Bizə yazın", formText: "Formu doldurun, 24 saat ərzində sizinlə əlaqə saxlayacağıq.",
+        sendBtn: "Mesaj göndər",
+        successMsg: "Mesajınız uğurla hazırlandı! WhatsApp-a yönləndirilirsiniz...",
+        namePlaceholder: "Adınız *", emailPlaceholder: "Email ünvanınız *", phonePlaceholder: "Telefon nömrəniz *", messagePlaceholder: "Mesajınız *",
+        bagEmpty: "Səbətiniz boşdur.",
+        bagSigninText: "Saxlanılan məhsulları görmək üçün daxil olun",
+        myProfile: "Mənim profilim",
+        menuSaves: "Bəyəndiklərim",
+        menuCart: "Səbət",
+        menuAccount: "Hesab",
+        menuSignin: "Daxil ol",
+        menuSignout: "Çıxış"
+    }
+};
+
+let currentLang = localStorage.getItem('rakenLang') || 'EN';
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('rakenLang', lang);
+    applyTranslations();
+    updateHeaderAccountState();
+}
+
+function applyTranslations() {
+    const t = translations[currentLang];
+    document.querySelectorAll('[data-lang]').forEach(el => {
+        const key = el.getAttribute('data-lang');
+        if (t[key]) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-lang-placeholder');
+        if (t[key]) el.placeholder = t[key];
+    });
+}
+
+function updateHeaderAccountState() {
+    let menuContent = document.getElementById('dropdownMenuContent');
+    let isLoggedIn = localStorage.getItem('rakenLoggedIn') === 'true' || localStorage.getItem('isLoggedIn') === 'true';
+    let username = localStorage.getItem('rakenUsername') || localStorage.getItem('userName') || 'User';
+    const t = translations[currentLang];
+
+    if (menuContent) {
+        if (isLoggedIn) {
+            menuContent.innerHTML = `
+                <div class="small fw-bold text-secondary text-uppercase mb-1" style="letter-spacing:1px;">${t.myProfile}</div>
+                <a href="saves.html" class="profile-link"><i class="bi bi-bookmark"></i> <span>${t.menuSaves}</span></a>
+                <a href="cart.html" class="profile-link"><i class="bi bi-bag"></i> <span>${t.menuCart}</span></a>
+                <a href="account.html" class="profile-link"><i class="bi bi-gear"></i> <span>${t.menuAccount}</span></a>
+                <a href="#" class="profile-link text-danger" onclick="signOutUser(event)"><i class="bi bi-box-arrow-right text-danger"></i> <span>${username} (${t.menuSignout})</span></a>
+            `;
+        } else {
+            menuContent.innerHTML = `
+                <h6 data-lang="bagEmpty">${t.bagEmpty}</h6>
+                <div class="signin-prompt" data-lang="bagSigninText">${t.bagSigninText}</div>
+                <div class="small fw-bold text-secondary text-uppercase mb-2" data-lang="myProfile" style="letter-spacing:1px;">${t.myProfile}</div>
+                <a href="saves.html" class="profile-link"><i class="bi bi-bookmark"></i> <span data-lang="menuSaves">${t.menuSaves}</span></a>
+                <a href="cart.html" class="profile-link"><i class="bi bi-bag"></i> <span data-lang="menuCart">${t.menuCart}</span></a>
+                <a href="account.html" class="profile-link"><i class="bi bi-gear"></i> <span data-lang="menuAccount">${t.menuAccount}</span></a>
+                <a href="signin.html" class="profile-link" id="authLink"><i class="bi bi-person"></i> <span data-lang="menuSignin">${t.menuSignin}</span></a>
+            `;
+        }
+    }
+}
+
+function signOutUser(e) {
+    e.preventDefault();
+    localStorage.removeItem('rakenLoggedIn');
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('rakenUsername');
+    localStorage.removeItem('userName');
+    window.location.reload();
+}
+
+// Единая логика отправки формы в WhatsApp (поддерживает и обычный заход, и заказ из корзины)
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('languageSelect').value = currentLang;
+    applyTranslations();
+    updateHeaderAccountState();
+
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            // Считываем точные данные по id полей
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const phone = document.getElementById('contactPhone').value.trim();
+            const userMsg = document.getElementById('contactMessage').value.trim();
+
+            // Проверяем, есть ли в URL товар из корзины
+            const urlParams = new URLSearchParams(window.location.search);
+            const product = urlParams.get('product');
+            const size = urlParams.get('size');
+            const price = urlParams.get('price');
+            const qty = urlParams.get('qty');
+
+            // Формируем текст
+            let waText = `*Новое сообщение с сайта RAKEN!*%0A%0A`;
+            
+            if (product) {
+                waText += `🛍 *Выбранный товар:*%0A`;
+                waText += `- Название: ${product}%0A`;
+                waText += `- Размер: ${size || 'Не указан'}%0A`;
+                waText += `- Количество: ${qty || '1'}%0A`;
+                if (price) waText += `- Цена: ${price}%0A`;
+                waText += `%0A`;
+            }
+
+            waText += `👤 *Контактные данные:*%0A`;
+            waText += `- Имя: ${name || 'Не указано'}%0A`;
+            if (email) waText += `- Email: ${email}%0A`;
+            if (phone) waText += `- Телефон: ${phone}%0A`;
+            if (userMsg) {
+                waText += `%0A💬 *Сообщение:*%0A${userMsg}`;
+            }
+
+            const whatsappNumber = "994503180141";
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${waText}`;
+
+            // Очищаем форму и показываем уведомление
+            contactForm.reset();
+            const alertBox = document.getElementById('successAlert');
+            alertBox.style.display = 'block';
+
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 800);
+
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 4000);
+        });
+    }
+});
+</script>
+</body>
+</html>

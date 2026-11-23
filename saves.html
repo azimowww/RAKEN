@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAKEN — Your Saves</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        *{scroll-behavior:smooth}
+        body{font-family:Arial,sans-serif;color:#111;overflow-x:hidden;animation:fadeIn .8s ease;background:#fff; min-height: 100vh; display: flex; flex-direction: column;}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+        .navbar{background:#fff;border-bottom:1px solid #ddd;padding:18px 0}
+        .logo{font-size:28px;font-weight:bold;letter-spacing:5px;cursor:pointer}
+        .nav-link{color:#111!important;font-weight:600;margin:0 12px;transition:.3s}
+        .nav-link:hover{transform:translateY(-2px)}
+        #languageSelect{width:70px;border-radius:20px}
+        
+        .cart-dropdown { width: 320px; right: 0; left: auto !important; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid #eee; margin-top: 12px !important; }
+        .cart-dropdown h6 { font-size: 18px; font-weight: bold; margin-bottom: 8px; color: #111; }
+        .signin-prompt { font-size: 13px; color: #555; margin-bottom: 15px; border-bottom: 1px solid #eaeaea; padding-bottom: 10px; }
+        .profile-link { display: flex; align-items: center; gap: 12px; color: #333; text-decoration: none; padding: 8px 0; font-size: 15px; transition: color 0.2s; cursor: pointer; }
+        .profile-link i { font-size: 18px; color: #555; }
+        .profile-link:hover { color: #000; }
+        .profile-link:hover i { color: #000; }
+        
+        .social-btn { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #ddd; color: #111; background: #fff; text-decoration: none; border-radius: 50%; transition: all 0.3s ease; }
+        .whatsapp-btn:hover { background-color: #25d366; color: #fff; border-color: #25d366; transform: translateY(-3px) scale(1.08); }
+        .tiktok-btn:hover { background-color: #000; color: #fff; border-color: #000; transform: translateY(-3px) scale(1.08); }
+
+        /* Овальные карточки товаров слева */
+        .saved-item-card {
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 30px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .saved-item-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .saved-item-info {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            text-align: left;
+        }
+
+        .saved-img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        /* Овальные кнопки */
+        .btn-oval {
+            border-radius: 30px;
+            padding: 8px 22px;
+            font-weight: bold;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .btn-view-custom {
+            background: #fff;
+            color: #111;
+            border: 2px solid #111;
+        }
+        .btn-view-custom:hover {
+            background: #111;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-whatsapp-custom {
+            background: #25d366;
+            color: #fff;
+            border: 2px solid #25d366;
+        }
+        .btn-whatsapp-custom:hover {
+            background: #1ebe57;
+            color: #fff;
+            border-color: #1ebe57;
+            transform: translateY(-2px);
+        }
+
+        .btn-remove-custom {
+            background: #fff;
+            color: #dc3545;
+            border: 2px solid #dc3545;
+        }
+        .btn-remove-custom:hover {
+            background: #dc3545;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        footer { background: #0b0b0b; color: #fff; padding: 50px 0 30px; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+
+        <a class="navbar-brand logo" href="saves.html">RAKEN</a>
+
+        <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" data-lang="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="shop.html" data-lang="shop">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html" data-lang="about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html" data-lang="contact">Contact</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+
+                <select id="languageSelect"
+                    class="form-select form-select-sm"
+                    onchange="changeLanguage(this.value)">
+                    <option value="EN">EN</option>
+                    <option value="RU">RU</option>
+                    <option value="AZ">AZ</option>
+                </select>
+
+                <div class="d-flex align-items-center gap-1">
+
+                    <a href="https://www.instagram.com/raken.wear?dmpr=MXYwbndwZjR1ZW41Mg%3D%3D&utm_source=qr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn instagram-btn"
+                        title="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+
+                    <a href="https://tiktok.com/@raken.clothing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn tiktok-btn"
+                        title="TikTok">
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+
+                </div>
+
+                <div class="dropdown">
+
+                    <button class="btn btn-dark cart-button dropdown-toggle cart-button-oval"
+                        type="button"
+                        id="cartDropdownMenu"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                        <i class="bi bi-bag"></i>
+
+                    </button>
+
+                    <div class="dropdown-menu cart-dropdown"
+                        aria-labelledby="cartDropdownMenu"
+                        id="dropdownMenuContent">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container py-5 flex-grow-1">
+    <h2 class="fw-bold mb-4" data-lang="saved_title">Your Saved Items</h2>
+    <div id="savedItemsContainer" class="d-flex flex-column gap-3">
+        <!-- Сюда динамически подгружаются избранные товары -->
+    </div>
+</div>
+
+<footer>
+    <div class="container text-center text-secondary small">
+        <p class="mb-2" data-lang="footer_contact">To order, please contact us via phone or WhatsApp.</p>
+        ©️ 2026 RAKEN. <span data-lang="rights">All rights reserved.</span>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const translations = {
+    EN: {
+        home: "Home", shop: "Shop", about: "About", contact: "Contact",
+        saved_title: "Your Saved Items",
+        noSaves: "You haven't saved any items yet.",
+        view: "View", remove: "Remove", orderWA: "Order via WhatsApp",
+        bagEmpty: "Your Bag is empty.", bagSigninText: "Sign in to see if you have any saved items",
+        myProfile: "My Profile", menuSaves: "Your Saves", menuAccount: "Account", menuSignin: "Sign in", menuSignout: "Sign out",
+        footer_contact: "To order, please contact us via phone or WhatsApp.", rights: "All rights reserved."
+    },
+    RU: {
+        home: "Главная", shop: "Каталог", about: "О нас", contact: "Контакты",
+        saved_title: "Избранные товары",
+        noSaves: "Вы пока ничего не добавили в избранное.",
+        view: "Смотреть", remove: "Удалить", orderWA: "Заказать в WhatsApp",
+        bagEmpty: "Ваша сумка пуста.", bagSigninText: "Войдите, чтобы увидеть сохраненные товары",
+        myProfile: "Мой профиль", menuSaves: "Избранное", menuAccount: "Аккаунт", menuSignin: "Войти", menuSignout: "Выйти",
+        footer_contact: "Для заказа свяжитесь с нами по телефону или WhatsApp.", rights: "Все права защищены."
+    },
+    AZ: {
+        home: "Ana səhifə", shop: "Mağaza", about: "Haqqımızda", contact: "Əlaqə",
+        saved_title: "Bəyəndiyiniz Məhsullar",
+        noSaves: "Hələ heç bir məhsul bəyənməmisiniz.",
+        view: "Bax", remove: "Sil", orderWA: "WhatsApp ilə sifariş",
+        bagEmpty: "Səbətiniz boşdur.", bagSigninText: "Yadda saxladığınız məhsulları görmək üçün daxil olun",
+        myProfile: "Profilim", menuSaves: "Bəyəndiklərim", menuAccount: "Hesab", menuSignin: "Daxil ol", menuSignout: "Çıxış",
+        footer_contact: "Sifariş üçün zəng edin və ya WhatsApp-a yazın.", rights: "Bütün hüquqlar qorunur."
+    }
+};
+
+let currentLang = localStorage.getItem('rakenLang') || 'EN';
+
+const products = [
+    { id: 1, title: "RAKEN — SORRY MAMMA!", priceNum: 35, price: "35 AZN", img: "8.jpeg" },
+    { id: 2, title: "RAKEN — SOCIAL MEDIA IS FAKE (Black)", priceNum: 25, price: "25 AZN", img: "foto1.jpeg" },
+    { id: 3, title: "RAKEN — SOCIAL MEDIA IS FAKE (Dark)", priceNum: 25, price: "25 AZN", img: "foto5.jpeg" },
+    { id: 4, title: "RAKEN — SOCIAL MEDIA IS FAKE (White 1)", priceNum: 25, price: "25 AZN", img: "foto4.jpeg" },
+    { id: 5, title: "RAKEN — LIVE WITHOUT FILTERS (Black)", priceNum: 25, price: "25 AZN", img: "foto7.jpeg" },
+    { id: 6, title: "RAKEN — I CALL THAT FASHION", priceNum: 35, price: "35 AZN", img: "foto1.jpeg" }
+];
+
+function initSavesPage() {
+    document.getElementById('languageSelect').value = currentLang;
+    applyTranslations();
+    updateHeaderAccountState();
+    renderSavedItems();
+}
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('rakenLang', lang);
+    applyTranslations();
+    updateHeaderAccountState();
+    renderSavedItems();
+}
+
+function applyTranslations() {
+    const t = translations[currentLang];
+    document.querySelectorAll('[data-lang]').forEach(el => {
+        const key = el.getAttribute('data-lang');
+        if (t[key]) el.textContent = t[key];
+    });
+}
+
+function renderSavedItems() {
+    const container = document.getElementById('savedItemsContainer');
+    const savedIds = JSON.parse(localStorage.getItem('rakenSaves')) || [];
+    const t = translations[currentLang];
+
+    if (savedIds.length === 0) {
+        container.innerHTML = `<p class="text-secondary">${t.noSaves}</p>`;
+        return;
+    }
+
+    const savedProducts = products.filter(p => savedIds.includes(p.id));
+
+    container.innerHTML = savedProducts.map(p => `
+        <div class="saved-item-card">
+            <div class="saved-item-info">
+                <img src="${p.img}" class="saved-img">
+                <div>
+                    <h5 class="fw-bold mb-1" style="font-size:16px;">${p.title}</h5>
+                    <div class="text-secondary fw-semibold">${p.price}</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <a href="shop.html?id=${p.id}" class="btn-oval btn-view-custom"><i class="bi bi-eye"></i> ${t.view}</a>
+                <a href="https://wa.me/994503180141?text=Salam,%20bu%20məhsulla%20maraqlanıram:%20${encodeURIComponent(p.title)}%20(${p.price})" target="_blank" class="btn-oval btn-whatsapp-custom"><i class="bi bi-whatsapp"></i> ${t.orderWA}</a>
+                <button class="btn-oval btn-remove-custom" onclick="removeSaved(${p.id})"><i class="bi bi-trash"></i> ${t.remove}</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function removeSaved(id) {
+    let saved = JSON.parse(localStorage.getItem('rakenSaves')) || [];
+    saved = saved.filter(item => item !== id);
+    localStorage.setItem('rakenSaves', JSON.stringify(saved));
+    renderSavedItems();
+}
+
+function updateHeaderAccountState() {
+    let menuContent = document.getElementById('dropdownMenuContent');
+    let isLoggedIn = localStorage.getItem('rakenLoggedIn') === 'true';
+    let username = localStorage.getItem('rakenUsername') || 'azimoww';
+    const t = translations[currentLang];
+
+    if (menuContent) {
+        if (isLoggedIn) {
+            menuContent.innerHTML = `
+                <div class="small fw-bold text-secondary text-uppercase mb-1" style="letter-spacing:1px;">${t.myProfile}</div>
+                <a href="saves.html" class="profile-link"><i class="bi bi-bookmark"></i> <span>${t.menuSaves}</span></a>
+                <a href="account.html" class="profile-link"><i class="bi bi-gear"></i> <span>${t.menuAccount}</span></a>
+                <a href="#" class="profile-link text-danger" onclick="signOutUser(event)"><i class="bi bi-box-arrow-right text-danger"></i> <span>${username} (${t.menuSignout})</span></a>
+            `;
+        } else {
+            menuContent.innerHTML = `
+                <h6 data-lang="bagEmpty">${t.bagEmpty}</h6>
+                <div class="signin-prompt" data-lang="bagSigninText">${t.bagSigninText}</div>
+                <div class="small fw-bold text-secondary text-uppercase mb-2" data-lang="myProfile" style="letter-spacing:1px;">${t.myProfile}</div>
+                <a href="saves.html" class="profile-link"><i class="bi bi-bookmark"></i> <span data-lang="menuSaves">${t.menuSaves}</span></a>
+                <a href="account.html" class="profile-link"><i class="bi bi-gear"></i> <span data-lang="menuAccount">${t.menuAccount}</span></a>
+                <a href="signin.html" class="profile-link"><i class="bi bi-person"></i> <span data-lang="menuSignin">${t.menuSignin}</span></a>
+            `;
+        }
+    }
+}
+
+function signOutUser(e) {
+    e.preventDefault();
+    localStorage.setItem('rakenLoggedIn', 'false');
+    updateHeaderAccountState();
+    window.location.reload();
+}
+
+initSavesPage();
+</script>
+</body>
+</html>

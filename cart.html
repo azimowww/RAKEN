@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAKEN — Your Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        *{scroll-behavior:smooth}
+        body{font-family:Arial,sans-serif;color:#111;overflow-x:hidden;background:#fff;}
+        .navbar{background:#fff;border-bottom:1px solid #ddd;padding:18px 0}
+        .logo{font-size:28px;font-weight:bold;letter-spacing:5px;cursor:pointer;text-decoration:none;color:#111;}
+        .nav-link{color:#111!important;font-weight:600;margin:0 12px;transition:.3s}
+        .nav-link:hover{transform:translateY(-2px)}
+        
+        #languageSelect{width:75px;border-radius:20px;padding:4px 10px;font-size:13px;font-weight:600;}
+        
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            color: #111;
+            background: #fff;
+            text-decoration: none;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-btn:hover { background-color: #25d366; color: #fff; border-color: #25d366; transform: translateY(-3px) scale(1.08); box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); }
+        .tiktok-btn:hover { background-color: #000; color: #fff; border-color: #000; transform: translateY(-3px) scale(1.08); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+
+        .cart-button-oval {
+            border-radius: 30px !important;
+            padding: 6px 16px !important;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cart-container { padding: 50px 0; animation: fadeInUp 0.6s ease; max-width: 1100px; }
+        
+        .table-custom th {
+            font-weight: 600;
+            border-bottom: 2px solid #111;
+            background: transparent;
+        }
+        .table-custom td {
+            vertical-align: middle;
+            padding: 20px 10px;
+        }
+
+        .cart-img-box {
+            width: 70px;
+            height: 70px;
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .cart-img-box img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .cart-summary-box {
+            background: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .form-control-quantity {
+            width: 70px;
+            border-radius: 20px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        .btn-oval {
+            border-radius: 30px !important;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .btn-oval:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+
+        <a class="navbar-brand logo" href="cart.html">RAKEN</a>
+
+        <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" data-lang="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="shop.html" data-lang="shop">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html" data-lang="about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html" data-lang="contact">Contact</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+
+                <select id="languageSelect"
+                    class="form-select form-select-sm"
+                    onchange="changeLanguage(this.value)">
+                    <option value="EN">EN</option>
+                    <option value="RU">RU</option>
+                    <option value="AZ">AZ</option>
+                </select>
+
+                <div class="d-flex align-items-center gap-1">
+
+                    <a href="https://www.instagram.com/raken.wear?dmpr=MXYwbndwZjR1ZW41Mg%3D%3D&utm_source=qr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn instagram-btn"
+                        title="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+
+                    <a href="https://tiktok.com/@raken.clothing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn tiktok-btn"
+                        title="TikTok">
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+
+                </div>
+
+                <div class="dropdown">
+
+                    <button class="btn btn-dark cart-button dropdown-toggle cart-button-oval"
+                        type="button"
+                        id="cartDropdownMenu"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                        <i class="bi bi-bag"></i>
+
+                    </button>
+
+                    <div class="dropdown-menu cart-dropdown"
+                        aria-labelledby="cartDropdownMenu"
+                        id="dropdownMenuContent">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container cart-container">
+    <h1 class="fw-bold mb-4" data-lang="cart_title">Cart</h1>
+    
+    <div id="cartContentArea">
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const translations = {
+    EN: {
+        home: "Home", shop: "Shop", about: "About", contact: "Contact",
+        cart_title: "Cart",
+        empty_cart_msg: "Your cart is currently empty.",
+        product: "Product", price: "Price", quantity: "Quantity", subtotal_col: "Subtotal", remove: "Remove", shop_link: "Go to Shop",
+        cart_total: "Cart total", subtotal_label: "Subtotal", shipping_label: "Shipping", free: "Free", total_label: "Total",
+        contact_btn: "Contact", clear_cart: "Clear Cart", size_txt: "Size"
+    },
+    RU: {
+        home: "Главная", shop: "Каталог", about: "О нас", contact: "Контакты",
+        cart_title: "Корзина",
+        empty_cart_msg: "Ваша корзина в данный момент пуста.",
+        product: "Продукт", price: "Цена", quantity: "Количество", subtotal_col: "Итого", remove: "Удалить", shop_link: "Перейти в каталог",
+        cart_total: "Итого в корзине", subtotal_label: "Подытог", shipping_label: "Доставка", free: "Бесплатно", total_label: "Всего",
+        contact_btn: "Связаться (Contact)", clear_cart: "Очистить корзину", size_txt: "Размер"
+    },
+    AZ: {
+        home: "Ana səhifə", shop: "Mağaza", about: "Haqqımızda", contact: "Əlaqə",
+        cart_title: "Səbət",
+        empty_cart_msg: "Səbətiniz hal-hazırda boşdur.",
+        product: "Məhsul", price: "Qiymət", quantity: "Miqdar", subtotal_col: "Cəm", remove: "Sil", shop_link: "Mağazaya keç",
+        cart_total: "Səbət cəmi", subtotal_label: "Ara cəm", shipping_label: "Çatdırılma", free: "Pulsuz", total_label: "Cəmi",
+        contact_btn: "Əlaqə (Contact)", clear_cart: "Səbəti təmizlə", size_txt: "Ölçü"
+    }
+};
+
+let currentLang = localStorage.getItem('rakenLang') || 'EN';
+
+function initCart() {
+    document.getElementById('languageSelect').value = currentLang;
+    applyLang();
+    renderCart();
+}
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('rakenLang', lang);
+    applyLang();
+    renderCart();
+}
+
+function applyLang() {
+    const t = translations[currentLang];
+    document.querySelectorAll('[data-lang]').forEach(el => {
+        const key = el.getAttribute('data-lang');
+        if (t[key]) el.textContent = t[key];
+    });
+}
+
+function renderCart() {
+    let saved = localStorage.getItem('rakenCartItem');
+    let area = document.getElementById('cartContentArea');
+    const t = translations[currentLang];
+
+    if (!saved) {
+        area.innerHTML = `
+            <div class="text-center py-5 border rounded-4 bg-light">
+                <p class="text-secondary mb-4 fs-5">${t.empty_cart_msg}</p>
+                <a href="shop.html" class="btn btn-dark btn-oval">${t.shop_link}</a>
+            </div>
+        `;
+        return;
+    }
+
+    let item = JSON.parse(saved);
+    let rawPrice = item.price.replace(/[^0-9.]/g, '');
+    let priceNumber = parseFloat(rawPrice) || 0;
+    
+    let qty = item.quantity || 1;
+    let totalSum = priceNumber * qty;
+
+    area.innerHTML = `
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <div class="table-responsive">
+                    <table class="table table-custom align-middle">
+                        <thead>
+                            <tr>
+                                <th style="width: 45%;">${t.product}</th>
+                                <th style="width: 20%;">${t.price}</th>
+                                <th style="width: 15%;">${t.quantity}</th>
+                                <th style="width: 15%;">${t.subtotal_col}</th>
+                                <th style="width: 5%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="cart-img-box">
+                                            <img src="${item.img}" alt="">
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-0">${item.title}</h6>
+                                            <small class="text-secondary">${t.size_txt}: ${item.size}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>${item.price}</td>
+                                <td>
+                                    <input type="number" min="1" max="10" value="${qty}" class="form-control form-control-quantity" onchange="updateQuantity(this.value)">
+                                </td>
+                                <td class="fw-bold">${totalSum.toFixed(2)} ${item.price.replace(/[0-9.,]/g, '').trim() || 'AZN'}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="removeItem()" title="${t.remove}">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="cart-summary-box">
+                    <h5 class="fw-bold mb-4">${t.cart_total}</h5>
+                    <div class="d-flex justify-content-between mb-2 text-secondary">
+                        <span>${t.subtotal_label}</span>
+                        <strong class="text-dark">${totalSum.toFixed(2)}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 text-secondary pb-3 border-bottom">
+                        <span>${t.shipping_label}</span>
+                        <strong class="text-dark">${t.free}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-4 fs-5 fw-bold">
+                        <span>${t.total_label}</span>
+                        <span>${totalSum.toFixed(2)}</span>
+                    </div>
+
+                    <div class="d-grid gap-3">
+                        <a href="contact.html?product=${encodeURIComponent(item.title)}&size=${encodeURIComponent(item.size)}&price=${encodeURIComponent(item.price)}&qty=${qty}" class="btn btn-dark btn-oval">
+                            ${t.contact_btn}
+                        </a>
+                        <button class="btn btn-outline-dark btn-oval" onclick="removeItem()">
+                            ${t.clear_cart}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function updateQuantity(newQty) {
+    let saved = localStorage.getItem('rakenCartItem');
+    if (saved) {
+        let item = JSON.parse(saved);
+        item.quantity = parseInt(newQty) || 1;
+        localStorage.setItem('rakenCartItem', JSON.stringify(item));
+        renderCart();
+    }
+}
+
+function removeItem() {
+    localStorage.removeItem('rakenCartItem');
+    renderCart();
+}
+
+initCart();
+</script>
+</body>
+</html>

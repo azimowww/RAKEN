@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAKEN — Streetwear</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #111;
+            overflow-x: hidden;
+            animation: fadeIn .8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .navbar {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 18px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            color: #111 !important;
+            font-weight: 600;
+            margin: 0 12px;
+            transition: .3s;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Language selector */
+        #languageSelect {
+            width: 75px;
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .cart-dropdown {
+            width: 320px;
+            right: 0;
+            left: auto !important;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid #eee;
+            margin-top: 12px !important;
+        }
+
+        .cart-dropdown h6 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #111;
+        }
+
+        .signin-prompt {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+
+        .profile-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #333;
+            text-decoration: none;
+            padding: 8px 0;
+            font-size: 15px;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .profile-link i {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .profile-link:hover {
+            color: #000;
+        }
+
+        .profile-link:hover i {
+            color: #000;
+        }
+
+        /* Social media icons */
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            color: #111;
+            background: #fff;
+            text-decoration: none;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .instagram-btn:hover {
+            background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+            color: #fff;
+            border-color: #d62976;
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 4px 12px rgba(214, 41, 118, 0.3);
+        }
+
+        .tiktok-btn:hover {
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Cart button */
+        .cart-button-oval {
+            border-radius: 30px !important;
+            padding: 6px 16px !important;
+        }
+
+        .hero {
+            background: #f8f9fa;
+            padding: 80px 0;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 7vw, 75px);
+            font-weight: bold;
+            line-height: 1;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .promo-section {
+            background: #f1f3f5;
+            padding: 70px 0;
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .timer-box {
+            display: flex;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .timer-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            text-align: center;
+            min-width: 65px;
+            border-radius: 12px;
+        }
+
+        .timer-number {
+            font-size: 22px;
+            font-weight: bold;
+            display: block;
+            line-height: 1;
+        }
+
+        .timer-label {
+            font-size: 10px;
+            color: #777;
+            text-transform: uppercase;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .animated-hoodie {
+            max-height: 480px;
+            width: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
+            cursor: pointer;
+        }
+
+        .animated-hoodie:hover {
+            transform: scale(1.07) rotate(-2deg);
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+        }
+
+        .products-section {
+            padding: 70px 0;
+            background: #fff;
+        }
+
+        .marquee-wrapper {
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: scrollMarquee 25s linear infinite;
+        }
+
+        .marquee-wrapper:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollMarquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .product-card {
+            flex: 0 0 300px;
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            padding: 30px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 480px;
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        }
+
+        .product-img-wrap {
+            height: 230px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .product-img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+
+        <a class="navbar-brand logo" href="index.html">RAKEN</a>
+
+        <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" data-lang="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="shop.html" data-lang="shop">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html" data-lang="about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html" data-lang="contact">Contact</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+
+                <!-- Language selector -->
+                <select id="languageSelect"
+                    class="form-select form-select-sm"
+                    onchange="changeLanguage(this.value)">
+                    <option value="EN">EN</option>
+                    <option value="RU">RU</option>
+                    <option value="AZ">AZ</option>
+                </select>
+
+                <!-- Instagram and TikTok -->
+                <div class="d-flex align-items-center gap-1">
+
+                    <a href="https://www.instagram.com/raken.wear?dmpr=MXYwbndwZjR1ZW41Mg%3D%3D&utm_source=qr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn instagram-btn"
+                        title="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+
+                    <a href="https://tiktok.com/@raken.clothing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn tiktok-btn"
+                        title="TikTok">
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+
+                </div>
+
+                <!-- Cart dropdown -->
+                <div class="dropdown">
+
+                    <button class="btn btn-dark cart-button dropdown-toggle cart-button-oval"
+                        type="button"
+                        id="cartDropdownMenu"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                        <i class="bi bi-bag"></i>
+
+                    </button>
+
+                    <div class="dropdown-menu cart-dropdown"
+                        aria-labelledby="cartDropdownMenu"
+                        id="dropdownMenuContent">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<!-- HERO SECTION -->
+
+<section class="hero">
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                <div class="text-uppercase text-secondary small fw-bold mb-3"
+                    style="letter-spacing:3px">
+                    RAKEN / EST. 2026
+                </div>
+
+                <h1 class="hero-title">
+                    WEAR YOUR STATEMENT.
+                </h1>
+
+                <p class="text-secondary mb-4" data-lang="heroText">
+                    Simple clothes. Strong messages. Your own style.
+                </p>
+
+                <a href="shop.html"
+                    class="btn btn-dark btn-lg px-5 py-3 rounded-pill fw-bold"
+                    data-lang="shopNow">
+                    SHOP NOW
+                </a>
+
+            </div>
+
+            <div class="col-lg-6 text-center">
+
+                <img src="8.jpeg"
+                    alt="RAKEN Hoodie"
+                    class="img-fluid animated-hoodie">
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- PROMOTION SECTION -->
+
+<section class="promo-section">
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                <div class="text-primary fw-bold small mb-3"
+                    style="letter-spacing:2px"
+                    data-lang="promoTag">
+                    LIMITED PROMOTION
+                </div>
+
+                <h2 class="display-5 fw-bold mb-3">
+                    Hurry up!<br>40% OFF
+                </h2>
+
+                <p class="text-secondary mb-4" data-lang="promoDesc">
+                    Thousands of high streetwear items are waiting for you.
+                </p>
+
+                <div class="timer-box">
+
+                    <div class="timer-item">
+                        <span class="timer-number" id="d">02</span>
+                        <span class="timer-label">Days</span>
+                    </div>
+
+                    <div class="timer-item">
+                        <span class="timer-number" id="h">13</span>
+                        <span class="timer-label">Hours</span>
+                    </div>
+
+                    <div class="timer-item">
+                        <span class="timer-number" id="m">59</span>
+                        <span class="timer-label">Min</span>
+                    </div>
+
+                    <div class="timer-item">
+                        <span class="timer-number" id="s">13</span>
+                        <span class="timer-label">Sec</span>
+                    </div>
+
+                </div>
+
+                <a href="shop.html"
+                    class="btn btn-dark btn-lg px-5 py-3 rounded-pill fw-bold"
+                    data-lang="shopNow">
+                    Shop Now
+                </a>
+
+            </div>
+
+            <div class="col-lg-6 text-center">
+
+                <img src="foto2.jpeg"
+                    alt="Promo Hoodie"
+                    class="img-fluid animated-hoodie">
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- FEATURED PRODUCTS -->
+
+<section class="products-section">
+
+    <div class="container mb-4">
+
+        <h2 class="fw-bold m-0"
+            style="letter-spacing:1px"
+            data-lang="featuredDrop">
+            FEATURED DROP
+        </h2>
+
+    </div>
+
+    <div class="marquee-wrapper">
+
+        <div class="marquee-track" id="marqueeTrack"></div>
+
+    </div>
+
+</section>
+
+
+<footer></footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+// PRODUCTS
+
+const products = [
+    {
+        title: "RAKEN Heavy Hoodie",
+        desc: "Heavyweight cotton, oversized fit.",
+        price: "25 AZN",
+        img: "foto5.jpeg"
+    },
+    {
+        title: "RAKEN Minimalist Smartwatch",
+        desc: "AMOLED display, aluminum case.",
+        price: "35 AZN",
+        img: "foto4.jpeg"
+    },
+    {
+        title: "RAKEN Statement Zip",
+        desc: "Premium metal zipper, structured hood.",
+        price: "25 AZN",
+        img: "8.jpeg"
+    },
+    {
+        title: "RAKEN Essential Crew",
+        desc: "Classic silhouette, ultra-soft fleece.",
+        price: "35 AZN",
+        img: "foto7.jpeg"
+    },
+    {
+        title: "RAKEN Vintage Tee",
+        desc: "Washed cotton, acid wash effect.",
+        price: "25 AZN",
+        img: "foto2.jpeg"
+    }
+];
+
+const track = document.getElementById('marqueeTrack');
+
+function renderProducts() {
+
+    let html = '';
+
+    for (let i = 0; i < 2; i++) {
+
+        products.forEach(p => {
+
+            html += `<div class="product-card">
+
+                <div>
+
+                    <div class="product-img-wrap">
+                        <img src="${p.img}" alt="${p.title}" class="product-img">
+                    </div>
+
+                    <h3 class="h6 fw-bold mb-1">${p.title}</h3>
+
+                    <div class="product-price">${p.price}</div>
+
+                    <p class="text-secondary small mb-3">${p.desc}</p>
+
+                </div>
+
+                <a href="shop.html"
+                    class="btn btn-outline-dark rounded-pill w-100 btn-sm fw-bold">
+                    View Product
+                </a>
+
+            </div>`;
+
+        });
+    }
+
+    track.innerHTML = html;
+}
+
+renderProducts();
+
+
+// PROMOTION TIMER
+
+let pTime = 2 * 86400 + 13 * 3600 + 59 * 60 + 13;
+
+setInterval(() => {
+
+    if (pTime > 0) pTime--;
+
+    document.getElementById('d').textContent =
+        String(Math.floor(pTime / 86400)).padStart(2, '0');
+
+    document.getElementById('h').textContent =
+        String(Math.floor((pTime % 86400) / 3600)).padStart(2, '0');
+
+    document.getElementById('m').textContent =
+        String(Math.floor((pTime % 3600) / 60)).padStart(2, '0');
+
+    document.getElementById('s').textContent =
+        String(pTime % 60).padStart(2, '0');
+
+}, 1000);
+
+
+// TRANSLATIONS
+
+const translations = {
+
+    EN: {
+        home: "Home",
+        shop: "Shop",
+        about: "About",
+        contact: "Contact",
+
+        heroText: "Simple clothes. Strong messages. Your own style.",
+        shopNow: "SHOP NOW",
+        promoTag: "LIMITED PROMOTION",
+        promoDesc: "Thousands of high streetwear items are waiting for you.",
+        featuredDrop: "FEATURED DROP",
+
+        bagEmpty: "Your Bag is empty.",
+        bagSigninText: "Sign in to see if you have any saved items",
+        myProfile: "My Profile",
+        menuSaves: "Your Saves",
+        menuCart: "Cart",
+        menuAccount: "Account",
+        menuSignin: "Sign in",
+        menuSignout: "Sign out"
+    },
+
+    RU: {
+        home: "Главная",
+        shop: "Магазин",
+        about: "О нас",
+        contact: "Контакты",
+
+        heroText: "Простая одежда. Сильные смыслы. Ваш собственный стиль.",
+        shopNow: "В КАТАЛОГ",
+        promoTag: "ОГРАНИЧЕННАЯ АКЦИЯ",
+        promoDesc: "Тысячи крутых элементов уличной одежды ждут вас.",
+        featuredDrop: "ПОПУЛЯРНЫЕ ТОВАРЫ",
+
+        bagEmpty: "Ваша корзина пуста.",
+        bagSigninText: "Войдите, чтобы посмотреть сохраненные товары",
+        myProfile: "Мой профиль",
+        menuSaves: "Избранное",
+        menuCart: "Корзина",
+        menuAccount: "Аккаунт",
+        menuSignin: "Войти",
+        menuSignout: "Выйти"
+    },
+
+    AZ: {
+        home: "Ana səhifə",
+        shop: "Mağaza",
+        about: "Haqqımızda",
+        contact: "Əlaqə",
+
+        heroText: "Sadə geyim. Güclü mesajlar. Sənin şəxsi tərzin.",
+        shopNow: "ALIŞ-VERİŞ ET",
+        promoTag: "MƏHDUD AKSİYA",
+        promoDesc: "Minlərlə küçə tərzi məhsulları sizi gözləyir.",
+        featuredDrop: "SEÇİLMİŞ MƏHSULLAR",
+
+        bagEmpty: "Səbətiniz boşdur.",
+        bagSigninText: "Saxlanılan məhsulları görmək üçün daxil olun",
+        myProfile: "Mənim profilim",
+        menuSaves: "Bəyəndiklərim",
+        menuCart: "Səbət",
+        menuAccount: "Hesab",
+        menuSignin: "Daxil ol",
+        menuSignout: "Çıxış"
+    }
+
+};
+
+
+// CURRENT LANGUAGE
+
+let currentLang = localStorage.getItem('rakenLang') || 'EN';
+
+function changeLanguage(lang) {
+
+    currentLang = lang;
+
+    localStorage.setItem('rakenLang', lang);
+
+    applyTranslations();
+
+    updateHeaderAccountState();
+}
+
+
+function applyTranslations() {
+
+    const t = translations[currentLang];
+
+    document.querySelectorAll('[data-lang]').forEach(el => {
+
+        const key = el.getAttribute('data-lang');
+
+        if (t[key]) {
+            el.textContent = t[key];
+        }
+
+    });
+}
+
+
+// HEADER ACCOUNT MENU
+
+function updateHeaderAccountState() {
+
+    let menuContent = document.getElementById('dropdownMenuContent');
+
+    let isLoggedIn =
+        localStorage.getItem('rakenLoggedIn') === 'true' ||
+        localStorage.getItem('isLoggedIn') === 'true';
+
+    let username =
+        localStorage.getItem('rakenUsername') ||
+        localStorage.getItem('userName') ||
+        'User';
+
+    const t = translations[currentLang];
+
+    if (menuContent) {
+
+        if (isLoggedIn) {
+
+            menuContent.innerHTML = `
+
+                <div class="small fw-bold text-secondary text-uppercase mb-1"
+                    style="letter-spacing:1px;">
+                    ${t.myProfile}
+                </div>
+
+                <a href="saves.html" class="profile-link">
+                    <i class="bi bi-bookmark"></i>
+                    <span>${t.menuSaves}</span>
+                </a>
+
+                <a href="cart.html" class="profile-link">
+                    <i class="bi bi-cart3"></i>
+                    <span>${t.menuCart}</span>
+                </a>
+
+                <a href="account.html" class="profile-link">
+                    <i class="bi bi-gear"></i>
+                    <span>${t.menuAccount}</span>
+                </a>
+
+                <a href="#" class="profile-link text-danger"
+                    onclick="signOutUser(event)">
+                    <i class="bi bi-box-arrow-right text-danger"></i>
+                    <span>${username} (${t.menuSignout})</span>
+                </a>
+
+            `;
+
+        } else {
+
+            menuContent.innerHTML = `
+
+                <h6 data-lang="bagEmpty">${t.bagEmpty}</h6>
+
+                <div class="signin-prompt" data-lang="bagSigninText">
+                    ${t.bagSigninText}
+                </div>
+
+                <div class="small fw-bold text-secondary text-uppercase mb-2"
+                    data-lang="myProfile"
+                    style="letter-spacing:1px;">
+                    ${t.myProfile}
+                </div>
+
+                <a href="saves.html" class="profile-link">
+                    <i class="bi bi-bookmark"></i>
+                    <span data-lang="menuSaves">${t.menuSaves}</span>
+                </a>
+
+                <a href="account.html" class="profile-link">
+                    <i class="bi bi-gear"></i>
+                    <span data-lang="menuAccount">${t.menuAccount}</span>
+                </a>
+
+                <a href="signin.html" class="profile-link" id="authLink">
+                    <i class="bi bi-person"></i>
+                    <span data-lang="menuSignin">${t.menuSignin}</span>
+                </a>
+
+            `;
+
+        }
+    }
+}
+
+
+// SIGN OUT
+
+function signOutUser(e) {
+
+    e.preventDefault();
+
+    localStorage.removeItem('rakenLoggedIn');
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('rakenUsername');
+    localStorage.removeItem('userName');
+
+    window.location.reload();
+}
+
+
+// INITIALIZATION
+
+document.getElementById('languageSelect').value = currentLang;
+
+applyTranslations();
+
+updateHeaderAccountState();
+
+</script>
+
+</body>
+</html>
